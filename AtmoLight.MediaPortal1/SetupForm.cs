@@ -24,30 +24,41 @@ namespace AtmoLight
       {
         coreObject.AddTarget(Target.AmbiBox);
       }
+
+      // AtmoOrb
+      if (Settings.atmoOrbTarget)
+      {
+        coreObject.AddTarget(Target.AtmoOrb);
+      }
+
       // AtmoWin
       if (Settings.atmoWinTarget)
       {
         coreObject.AddTarget(Target.AtmoWin);
       }
+
       // Boblight
       if (Settings.boblightTarget)
       {
         coreObject.AddTarget(Target.Boblight);
       }
+
+      // Domotica
+      if (Settings.domoticaTarget)
+      {
+        coreObject.AddTarget(Target.Domotica);
+      }
+
       // Hyperion
       if (Settings.hyperionTarget)
       {
         coreObject.AddTarget(Target.Hyperion);
       }
+
       // Hue
       if (Settings.hueTarget)
       {
         coreObject.AddTarget(Target.Hue);
-      }
-
-      if (Settings.atmoOrbTarget)
-      {
-        coreObject.AddTarget(Target.AtmoOrb);
       }
 
       UpdateEffectComboBoxes();
@@ -151,6 +162,7 @@ namespace AtmoLight
           lbAtmoOrbLamps.Items.Add(Settings.atmoOrbLamps[i].Split(',')[0]);
         }
       }
+      ckDomoticaEnabled.Checked = Settings.domoticaTarget;
       tbVUMeterMaxHue.Text = Settings.vuMeterMaxHue.ToString();
       tbVUMeterMindB.Text = Settings.vuMeterMindB.ToString();
       tbVUMeterMinHue.Text = Settings.vuMeterMinHue.ToString();
@@ -1092,6 +1104,7 @@ namespace AtmoLight
       Settings.atmoOrbThreshold = int.Parse(tbAtmoOrbThreshold.Text);
       Settings.atmoOrbUseOverallLightness = cbAtmoOrbUseOverallLightness.Checked;
       Settings.atmoOrbTarget = ckAtmoOrbEnabled.Checked;
+      Settings.domoticaTarget = ckDomoticaEnabled.Checked;
       Settings.vuMeterMaxHue = Double.Parse(tbVUMeterMaxHue.Text.Replace(",", "."),
         CultureInfo.InvariantCulture.NumberFormat);
       Settings.vuMeterMindB = int.Parse(tbVUMeterMindB.Text);
@@ -2221,6 +2234,19 @@ namespace AtmoLight
       UpdateEffectComboBoxes();
     }
 
+    private void ckDomoticaEnabled_CheckedChanged(object sender, EventArgs e)
+    {
+      if (ckDomoticaEnabled.Checked)
+      {
+        coreObject.AddTarget(Target.Domotica);
+      }
+      else
+      {
+        coreObject.RemoveTarget(Target.Domotica);
+      }
+      UpdateEffectComboBoxes();
+    }
+
     #endregion
 
     #region Remote Button ComboBoxes
@@ -2731,6 +2757,5 @@ namespace AtmoLight
 
     }
     #endregion
-
   }
 }

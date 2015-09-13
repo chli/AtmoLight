@@ -127,6 +127,10 @@ namespace AtmoLight
     public static int atmoOrbBlackThreshold;
     public static bool atmoOrbUseOverallLightness;
     public static List<string> atmoOrbLamps = new List<string>();
+
+    // Domotica
+    public static bool domoticaTarget;
+
     #endregion
 
     #region Methods
@@ -317,6 +321,7 @@ namespace AtmoLight
         atmoOrbSaturation = Double.Parse(reader.GetValueAsString("atmolight", "atmoOrbSaturation", "0.2").Replace(",", "."), CultureInfo.InvariantCulture.NumberFormat);
         atmoOrbThreshold = reader.GetValueAsInt("atmolight", "atmoOrbThreshold", 0);
         atmoOrbUseOverallLightness = reader.GetValueAsBool("atmolight", "atmoOrbUseOverallLightness", true);
+        domoticaTarget = reader.GetValueAsBool("atmolight", "domoticaTarget", false);
         string atmoOrbLampTemp = reader.GetValueAsString("atmolight", "atmoOrbLamps", "");
         string[] atmoOrbLampTempSplit = atmoOrbLampTemp.Split('|');
         for (int i = 0; i < atmoOrbLampTempSplit.Length; i++)
@@ -449,6 +454,7 @@ namespace AtmoLight
           atmoOrbLampsTemp += atmoOrbLamps[i];
         }
         reader.SetValue("atmolight", "atmoOrbLamps", atmoOrbLampsTemp);
+        reader.SetValueAsBool("atmolight", "domoticaTarget", domoticaTarget);
         reader.SetValue("atmolight", "hueMinDiversion", hueMinDiversion.ToString());
         reader.SetValue("atmolight", "hueThreshold", hueThreshold.ToString());
         reader.SetValue("atmolight", "hueBlackThreshold", hueBlackThreshold.ToString());

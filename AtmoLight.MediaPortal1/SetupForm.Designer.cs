@@ -174,6 +174,8 @@
       this.btnSelectFileAmbiBox = new System.Windows.Forms.Button();
       this.tabPageAtmoOrb = new System.Windows.Forms.TabPage();
       this.grpAtmoOrbLamps = new System.Windows.Forms.GroupBox();
+      this.lblAtmoOrbProtocol = new System.Windows.Forms.Label();
+      this.cbAtmoOrbProtocolType = new System.Windows.Forms.ComboBox();
       this.lblAtmoOrbVScanTo = new System.Windows.Forms.Label();
       this.lblAtmoOrbHScanTo = new System.Windows.Forms.Label();
       this.lblAtmoOrbConnection = new System.Windows.Forms.Label();
@@ -277,8 +279,8 @@
       this.lblHueIP = new System.Windows.Forms.Label();
       this.openFileDialog4 = new System.Windows.Forms.OpenFileDialog();
       this.openFileDialog5 = new System.Windows.Forms.OpenFileDialog();
-      this.cbAtmoOrbProtocolType = new System.Windows.Forms.ComboBox();
-      this.lblAtmoOrbProtocol = new System.Windows.Forms.Label();
+      this.ckDomoticaEnabled = new System.Windows.Forms.CheckBox();
+      this.tabPageDomotica = new System.Windows.Forms.TabPage();
       this.tabPageHyperion.SuspendLayout();
       this.grpHyperionPrioritySettings.SuspendLayout();
       this.grpHyperionNetworkSettings.SuspendLayout();
@@ -789,6 +791,7 @@
       // 
       // grpTargets
       // 
+      this.grpTargets.Controls.Add(this.ckDomoticaEnabled);
       this.grpTargets.Controls.Add(this.ckAtmoOrbEnabled);
       this.grpTargets.Controls.Add(this.ckAmbiBoxEnabled);
       this.grpTargets.Controls.Add(this.ckBoblightEnabled);
@@ -798,7 +801,7 @@
       this.grpTargets.Controls.Add(this.ckHyperionEnabled);
       this.grpTargets.Location = new System.Drawing.Point(10, 10);
       this.grpTargets.Name = "grpTargets";
-      this.grpTargets.Size = new System.Drawing.Size(350, 103);
+      this.grpTargets.Size = new System.Drawing.Size(350, 142);
       this.grpTargets.TabIndex = 19;
       this.grpTargets.TabStop = false;
       this.grpTargets.Text = "Hardware selection";
@@ -839,7 +842,7 @@
       // ckHueEnabled
       // 
       this.ckHueEnabled.AutoSize = true;
-      this.ckHueEnabled.Location = new System.Drawing.Point(94, 50);
+      this.ckHueEnabled.Location = new System.Drawing.Point(94, 75);
       this.ckHueEnabled.Name = "ckHueEnabled";
       this.ckHueEnabled.Size = new System.Drawing.Size(46, 17);
       this.ckHueEnabled.TabIndex = 21;
@@ -873,7 +876,7 @@
       // ckHyperionEnabled
       // 
       this.ckHyperionEnabled.AutoSize = true;
-      this.ckHyperionEnabled.Location = new System.Drawing.Point(94, 75);
+      this.ckHyperionEnabled.Location = new System.Drawing.Point(94, 100);
       this.ckHyperionEnabled.Name = "ckHyperionEnabled";
       this.ckHyperionEnabled.Size = new System.Drawing.Size(68, 17);
       this.ckHyperionEnabled.TabIndex = 2;
@@ -897,9 +900,9 @@
       this.grpMode.Controls.Add(this.lblMusic);
       this.grpMode.Controls.Add(this.cbVideo);
       this.grpMode.Controls.Add(this.lblVidTvRec);
-      this.grpMode.Location = new System.Drawing.Point(10, 119);
+      this.grpMode.Location = new System.Drawing.Point(10, 160);
       this.grpMode.Name = "grpMode";
-      this.grpMode.Size = new System.Drawing.Size(350, 456);
+      this.grpMode.Size = new System.Drawing.Size(350, 415);
       this.grpMode.TabIndex = 7;
       this.grpMode.TabStop = false;
       this.grpMode.Text = "Effect Settings";
@@ -1670,6 +1673,7 @@
       this.tabMenu.Controls.Add(this.tabPageAtmoOrb);
       this.tabMenu.Controls.Add(this.tabPageAtmowin);
       this.tabMenu.Controls.Add(this.tabPageBoblight);
+      this.tabMenu.Controls.Add(this.tabPageDomotica);
       this.tabMenu.Controls.Add(this.tabPageHue);
       this.tabMenu.Controls.Add(this.tabPageHyperion);
       this.tabMenu.Location = new System.Drawing.Point(12, 12);
@@ -1916,6 +1920,29 @@
       this.grpAtmoOrbLamps.TabIndex = 1;
       this.grpAtmoOrbLamps.TabStop = false;
       this.grpAtmoOrbLamps.Text = "Lamp settings";
+      // 
+      // lblAtmoOrbProtocol
+      // 
+      this.lblAtmoOrbProtocol.AutoSize = true;
+      this.lblAtmoOrbProtocol.Location = new System.Drawing.Point(350, 75);
+      this.lblAtmoOrbProtocol.Name = "lblAtmoOrbProtocol";
+      this.lblAtmoOrbProtocol.Size = new System.Drawing.Size(49, 13);
+      this.lblAtmoOrbProtocol.TabIndex = 23;
+      this.lblAtmoOrbProtocol.Text = "Protocol:";
+      // 
+      // cbAtmoOrbProtocolType
+      // 
+      this.cbAtmoOrbProtocolType.FormattingEnabled = true;
+      this.cbAtmoOrbProtocolType.Items.AddRange(new object[] {
+            "IP",
+            "Broadcast",
+            "Multicast"});
+      this.cbAtmoOrbProtocolType.Location = new System.Drawing.Point(490, 72);
+      this.cbAtmoOrbProtocolType.Name = "cbAtmoOrbProtocolType";
+      this.cbAtmoOrbProtocolType.Size = new System.Drawing.Size(100, 21);
+      this.cbAtmoOrbProtocolType.TabIndex = 22;
+      this.cbAtmoOrbProtocolType.SelectedIndexChanged += new System.EventHandler(this.cbAtmoOrbProtocolType_SelectedIndexChanged);
+      this.cbAtmoOrbProtocolType.Validating += new System.ComponentModel.CancelEventHandler(this.cbAtmoOrbProtocolType_Validating);
       // 
       // lblAtmoOrbVScanTo
       // 
@@ -2907,28 +2934,25 @@
       // 
       this.openFileDialog5.Filter = "AmbiBox.exe|*.exe";
       // 
-      // cbAtmoOrbProtocolType
+      // ckDomoticaEnabled
       // 
-      this.cbAtmoOrbProtocolType.FormattingEnabled = true;
-      this.cbAtmoOrbProtocolType.Items.AddRange(new object[] {
-            "IP",
-            "Broadcast",
-            "Multicast"});
-      this.cbAtmoOrbProtocolType.Location = new System.Drawing.Point(490, 72);
-      this.cbAtmoOrbProtocolType.Name = "cbAtmoOrbProtocolType";
-      this.cbAtmoOrbProtocolType.Size = new System.Drawing.Size(100, 21);
-      this.cbAtmoOrbProtocolType.TabIndex = 22;
-      this.cbAtmoOrbProtocolType.SelectedIndexChanged += new System.EventHandler(this.cbAtmoOrbProtocolType_SelectedIndexChanged);
-      this.cbAtmoOrbProtocolType.Validating += new System.ComponentModel.CancelEventHandler(this.cbAtmoOrbProtocolType_Validating);
+      this.ckDomoticaEnabled.AutoSize = true;
+      this.ckDomoticaEnabled.Location = new System.Drawing.Point(94, 50);
+      this.ckDomoticaEnabled.Name = "ckDomoticaEnabled";
+      this.ckDomoticaEnabled.Size = new System.Drawing.Size(71, 17);
+      this.ckDomoticaEnabled.TabIndex = 25;
+      this.ckDomoticaEnabled.Text = "Domotica";
+      this.ckDomoticaEnabled.UseVisualStyleBackColor = true;
+      this.ckDomoticaEnabled.CheckedChanged += new System.EventHandler(this.ckDomoticaEnabled_CheckedChanged);
       // 
-      // lblAtmoOrbProtocol
+      // tabPageDomotica
       // 
-      this.lblAtmoOrbProtocol.AutoSize = true;
-      this.lblAtmoOrbProtocol.Location = new System.Drawing.Point(350, 75);
-      this.lblAtmoOrbProtocol.Name = "lblAtmoOrbProtocol";
-      this.lblAtmoOrbProtocol.Size = new System.Drawing.Size(49, 13);
-      this.lblAtmoOrbProtocol.TabIndex = 23;
-      this.lblAtmoOrbProtocol.Text = "Protocol:";
+      this.tabPageDomotica.BackColor = System.Drawing.SystemColors.Control;
+      this.tabPageDomotica.Location = new System.Drawing.Point(4, 22);
+      this.tabPageDomotica.Name = "tabPageDomotica";
+      this.tabPageDomotica.Size = new System.Drawing.Size(842, 584);
+      this.tabPageDomotica.TabIndex = 7;
+      this.tabPageDomotica.Text = "Domotica";
       // 
       // SetupForm
       // 
@@ -3263,5 +3287,7 @@
     private System.Windows.Forms.TextBox tbAtmoWakeHelperConnectDelay;
     private System.Windows.Forms.Label lblAtmoWakeHelperDisconnectDelay;
     private System.Windows.Forms.TextBox tbAtmoWakeHelperDisconnectDelay;
+    private System.Windows.Forms.CheckBox ckDomoticaEnabled;
+    private System.Windows.Forms.TabPage tabPageDomotica;
   }
 }

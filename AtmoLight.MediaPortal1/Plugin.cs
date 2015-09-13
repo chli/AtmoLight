@@ -207,6 +207,12 @@ namespace AtmoLight
         coreObject.AddTarget(Target.Boblight);
       }
 
+      // Domotica
+      if (Settings.domoticaTarget)
+      {
+        coreObject.AddTarget(Target.Domotica);
+      }
+
       // Hyperion
       coreObject.hyperionIP = Settings.hyperionIP;
       coreObject.hyperionPort = Settings.hyperionPort;

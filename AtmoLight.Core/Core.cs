@@ -37,6 +37,7 @@ namespace AtmoLight
     AtmoOrb,
     AtmoWin,
     Boblight,
+    Domotica,
     Hue,
     Hyperion
   }

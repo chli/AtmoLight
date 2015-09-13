@@ -16,8 +16,9 @@ namespace AtmoLight.Targets.Domotica
 
   public enum DomoticaBrand
   {
+    Domoticz,
     KlikAanKlikUit,
-    Zwave,
+    Zwave
   }
 
   public enum DomoticaProtocol

@@ -175,12 +175,19 @@ namespace AtmoLight
           StartGetAtmoLiveViewSourceThread();
           break;
         case ContentEffect.StaticColor:
-          if (!SetAtmoEffect(ComEffectMode.cemDisabled)) return false;
-          if (!SetAtmoColor((byte)coreObject.staticColor[0], (byte)coreObject.staticColor[1], (byte)coreObject.staticColor[2])) return false;
-          // Workaround for SEDU.
-          // Without the sleep it would not change to color.
-          System.Threading.Thread.Sleep(delaySetStaticColor);
-          if (!SetAtmoColor((byte)coreObject.staticColor[0], (byte)coreObject.staticColor[1], (byte)coreObject.staticColor[2])) return false;
+          if (coreObject.targetResendCommand)
+          {
+            if (!SetAtmoEffect(ComEffectMode.cemDisabled)) return false;
+            if (!SetAtmoColor((byte)coreObject.staticColor[0], (byte)coreObject.staticColor[1], (byte)coreObject.staticColor[2])) return false;
+            // Workaround for SEDU.
+            // Without the sleep it would not change to color.
+            Thread.Sleep(delaySetStaticColor);
+            if (!SetAtmoColor((byte)coreObject.staticColor[0], (byte)coreObject.staticColor[1], (byte)coreObject.staticColor[2])) return false;
+          }
+          else
+          {
+            SetAtmoColor((byte) coreObject.staticColor[0], (byte) coreObject.staticColor[1],(byte) coreObject.staticColor[2]);
+          }
           break;
         case ContentEffect.GIFReader:
           if (!SetAtmoEffect(ComEffectMode.cemLivePicture)) return false;
